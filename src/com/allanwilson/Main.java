@@ -32,24 +32,29 @@ public class Main {
     }
 
     public static int[] orderIntegers(int[] workingArray) {
-        int[] orderedArray = new int[workingArray.length];
-        //for each pair put the highest number first
-        int keepLooping = 0;
-        while (keepLooping < 2) {
+
+        int[] previousWorkingArray = new int[workingArray.length];
+        for (int i=0; i<workingArray.length; i++){
+            previousWorkingArray[i] = workingArray[i];
+        }
+
+        boolean keepLooping = true;
+        while (keepLooping) {
             for (int i = 0; i < workingArray.length-1; i++) {
                 int firstPosition = workingArray[i];
                 int secondPosition = workingArray[(i + 1)];
                 if (firstPosition < secondPosition) {
-                    workingArray[(i)] = secondPosition;
+                    workingArray[i] = secondPosition;
                     workingArray[(i + 1)] = firstPosition;
-                    System.out.println("Working... " + Arrays.toString(workingArray));
-                    keepLooping = 0;
-                } else {
-                    keepLooping +=1;
                 }
-                System.out.println("KLin = " + keepLooping + " i = " + i);
             }
-            System.out.println("KL = " + keepLooping);
+            if (Arrays.equals(workingArray, previousWorkingArray)) {
+                keepLooping = false;
+            } else {
+                for (int i=0; i<workingArray.length; i++){
+                    previousWorkingArray[i] = workingArray[i];
+                }
+            }
         }
 
         return workingArray;
