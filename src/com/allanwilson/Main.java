@@ -8,8 +8,12 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("How many number will you enter?\r");
+        System.out.println("How many numbers will you enter?\r");
         int numberOfInts = scanner.nextInt();
+        if (numberOfInts <2){
+            System.out.println("Too small number, bye bye!");
+            System.exit(0);
+        }
         System.out.println("Enter your numbers...");
         int[] integers = getIntegers(numberOfInts);
         String[] newArray = new String[]{};
@@ -27,24 +31,27 @@ public class Main {
         return newInts;
     }
 
-    public static int[] orderIntegers(int[] unorderedArray){
-        int[] orderedArray = new int[unorderedArray.length];
-        if (unorderedArray.length%2 == 0){
-            System.out.println("Array is even...");
-            //split whole array into pairs
-            int numberOfPairs = unorderedArray.length/2;
-            System.out.println("Number of pairs: " + numberOfPairs);
-            //for each pair put the highest number first
-            for (int i=0; i<numberOfPairs;i++){
-                System.out.println("Pair: " + i);
-                //how the hell do I get 1+2 3+4 5+6 etc...?
+    public static int[] orderIntegers(int[] workingArray) {
+        int[] orderedArray = new int[workingArray.length];
+        //for each pair put the highest number first
+        int keepLooping = 0;
+        while (keepLooping < 2) {
+            for (int i = 0; i < workingArray.length-1; i++) {
+                int firstPosition = workingArray[i];
+                int secondPosition = workingArray[(i + 1)];
+                if (firstPosition < secondPosition) {
+                    workingArray[(i)] = secondPosition;
+                    workingArray[(i + 1)] = firstPosition;
+                    System.out.println("Working... " + Arrays.toString(workingArray));
+                    keepLooping = 0;
+                } else {
+                    keepLooping +=1;
+                }
+                System.out.println("KLin = " + keepLooping + " i = " + i);
             }
-            //set a 'changed' flag
-            //if no changed flag sorting is done
-        } else {
-            System.out.println("Array is odd...");
+            System.out.println("KL = " + keepLooping);
         }
 
-        return orderedArray;
+        return workingArray;
     }
 }
